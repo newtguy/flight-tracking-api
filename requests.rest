@@ -1,0 +1,78 @@
+
+### Create a fictional airport
+POST http://localhost:8080/airports
+Content-Type: application/json
+
+{
+  "name": "Dallas Fictional International",
+  "iataCode": "DFX",
+  "icaoCode": "KDFX",
+  "city": "Dallas",
+  "country": "United States",
+  "latitude": 32.8998,
+  "longitude": -97.0403,
+  "elevation": 607
+}
+
+### Create a fictional flight
+POST http://localhost:8080/flights
+Content-Type: application/json
+
+{
+  "flightNumber": "Flt1234",
+  "airline": "Northstar Airways",
+  "aircraftType": "Boeing 737-800",
+  "departureAirport": "DFX",
+  "arrivalAirport": "LAX",
+  "status": "En Route",
+  "altitude": 35000,
+  "speed": 450,
+  "latitude": 34.2,
+  "longitude": -112.1
+}
+
+### Update a fictional airport
+PUT http://localhost:8080/airports/6aca82c257ad29e70114e82e
+Content-Type: application/json
+
+{
+  "name": "Dallas Fictional International",
+  "iataCode": "DFX",
+  "icaoCode": "KDFX",
+  "city": "Dallas",
+  "country": "United States",
+  "latitude": 32.8998,
+  "longitude": -97.0403,
+  "elevation": 609
+}
+
+### Update a fictional flight
+PUT http://localhost:8080/flights/6aca82cb57ad29e70114e82f
+Content-Type: application/json
+
+{
+  "flightNumber": "FT102",
+  "airline": "Northstar Airways",
+  "aircraftType": "Boeing 737-800",
+  "departureAirport": "DFX",
+  "arrivalAirport": "LAX",
+  "status": "Cruising",
+  "altitude": 36000,
+  "speed": 455,
+  "latitude": 34.5,
+  "longitude": -113.0
+}
+
+
+### Delete a flight
+DELETE http://localhost:8080/flights/6aca82cb57ad29e70114e82f
+
+### Delete an airport
+DELETE http://localhost:8080/airports/6aca82c257ad29e70114e82e
+
+### Test an invalid flight ID
+DELETE http://localhost:8080/flights/not-an-id
+
+### Test an invalid airport ID
+DELETE http://localhost:8080/airports/not-an-id
+
