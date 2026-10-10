@@ -7,7 +7,7 @@ const doc = {
       "API for managing fictional flight tracking data and airport information.",
     version: "1.0.0",
   },
-  host: "https://flight-tracking-api.onrender.com",
+  host: "flight-tracking-api.onrender.com",
   schemes: ["https"],
   tags: [
     {
