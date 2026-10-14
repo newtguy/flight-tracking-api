@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const flightsController = require("../controllers/flights");
+const isAuthenticated = require("../middleware/auth");
 
 router.get("/", (req, res) => {
   // #swagger.tags = ['Flights']
@@ -16,24 +17,24 @@ router.get("/:id", (req, res) => {
   flightsController.getSingle(req, res);
 });
 
-router.post("/", (req, res) => {
+router.post("/", isAuthenticated, (req, res) => {
   // #swagger.tags = ['Flights']
   // #swagger.summary = 'Create a flight'
-  // #swagger.description = 'Creates a new flight using the provided flight data.'
+  // #swagger.description = 'Creates a new flight. Requires GitHub authentication.'
   flightsController.createFlight(req, res);
 });
 
-router.put("/:id", (req, res) => {
+router.put("/:id", isAuthenticated, (req, res) => {
   // #swagger.tags = ['Flights']
   // #swagger.summary = 'Update a flight'
-  // #swagger.description = 'Replaces an existing flight with the provided flight data.'
+  // #swagger.description = 'Updates an existing flight. Requires GitHub authentication.'
   flightsController.updateFlight(req, res);
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", isAuthenticated, (req, res) => {
   // #swagger.tags = ['Flights']
   // #swagger.summary = 'Delete a flight'
-  // #swagger.description = 'Deletes a flight matching the provided MongoDB ID.'
+  // #swagger.description = 'Deletes a flight matching the provided MongoDB ID. Requires GitHub authentication.'
   flightsController.deleteFlight(req, res);
 });
 

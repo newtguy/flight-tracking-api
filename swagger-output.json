@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Flight Tracking API",
-    "description": "API for managing fictional flight tracking data and airport information.",
+    "description": "A RESTful API for managing fictional flight tracking data, airports, airlines, and flight paths. Supports GitHub OAuth authentication, public read operations, and authenticated create, update, and delete operations.",
     "version": "1.0.0"
   },
   "host": "flight-tracking-api.onrender.com",
@@ -10,11 +10,27 @@
   "tags": [
     {
       "name": "Flights",
-      "description": "Endpoints for managing fictional flight data."
+      "description": "Endpoints for managing fictional flight tracking records."
     },
     {
       "name": "Airports",
       "description": "Endpoints for managing airport information."
+    },
+    {
+      "name": "Airlines",
+      "description": "Endpoints for managing airline information."
+    },
+    {
+      "name": "Flight Paths",
+      "description": "Endpoints for managing flight routes, distances, and estimated durations."
+    },
+    {
+      "name": "Authentication",
+      "description": "Endpoints for GitHub OAuth login, authentication status, and logout."
+    },
+    {
+      "name": "Users",
+      "description": "Endpoints for retrieving user records associated with GitHub authentication."
     }
   ],
   "schemes": [
@@ -52,7 +68,7 @@
           "Flights"
         ],
         "summary": "Create a flight",
-        "description": "Creates a new flight using the provided flight data.",
+        "description": "Creates a new flight. Requires GitHub authentication.",
         "parameters": [
           {
             "name": "body",
@@ -100,6 +116,9 @@
           },
           "400": {
             "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
           },
           "500": {
             "description": "Internal Server Error"
@@ -142,7 +161,7 @@
           "Flights"
         ],
         "summary": "Update a flight",
-        "description": "Replaces an existing flight with the provided flight data.",
+        "description": "Updates an existing flight. Requires GitHub authentication.",
         "parameters": [
           {
             "name": "id",
@@ -197,6 +216,9 @@
           "400": {
             "description": "Bad Request"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "404": {
             "description": "Not Found"
           },
@@ -210,7 +232,7 @@
           "Flights"
         ],
         "summary": "Delete a flight",
-        "description": "Deletes a flight matching the provided MongoDB ID.",
+        "description": "Deletes a flight matching the provided MongoDB ID. ",
         "parameters": [
           {
             "name": "id",
@@ -225,6 +247,9 @@
           },
           "400": {
             "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
           },
           "404": {
             "description": "Not Found"
@@ -256,7 +281,7 @@
           "Airports"
         ],
         "summary": "Create an airport",
-        "description": "Creates a new airport using the provided airport data.",
+        "description": "Creates a new airport. Requires GitHub authentication.",
         "parameters": [
           {
             "name": "body",
@@ -299,6 +324,9 @@
           "400": {
             "description": "Bad Request"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -340,7 +368,7 @@
           "Airports"
         ],
         "summary": "Update an airport",
-        "description": "Replaces an existing airport with the provided airport data.",
+        "description": "Replaces an existing airport with the provided airport data. Requires GitHub authentication.",
         "parameters": [
           {
             "name": "id",
@@ -389,6 +417,9 @@
           "400": {
             "description": "Bad Request"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "404": {
             "description": "Not Found"
           },
@@ -402,7 +433,7 @@
           "Airports"
         ],
         "summary": "Delete an airport",
-        "description": "Deletes an airport matching the provided MongoDB ID.",
+        "description": "Deletes an airport matching the provided MongoDB ID. Requires GitHub authentication.",
         "parameters": [
           {
             "name": "id",
@@ -417,6 +448,521 @@
           },
           "400": {
             "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/airlines/": {
+      "get": {
+        "tags": [
+          "Airlines"
+        ],
+        "summary": "Get all airlines",
+        "description": "Returns all airlines in the collection.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Airlines"
+        ],
+        "summary": "Create an airline",
+        "description": "Creates an airline using the supplied data. Requires GitHub authentication.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "example": "any"
+                },
+                "iataCode": {
+                  "example": "any"
+                },
+                "icaoCode": {
+                  "example": "any"
+                },
+                "country": {
+                  "example": "any"
+                },
+                "founded": {
+                  "example": "any"
+                },
+                "headquarters": {
+                  "example": "any"
+                },
+                "website": {
+                  "example": "any"
+                },
+                "fleetSize": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/airlines/{id}": {
+      "get": {
+        "tags": [
+          "Airlines"
+        ],
+        "summary": "Get an airline by ID",
+        "description": "Returns one airline matching the MongoDB ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Airlines"
+        ],
+        "summary": "Update an airline",
+        "description": "Replaces an existing airline with the supplied data. Requires GitHub authentication.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "example": "any"
+                },
+                "iataCode": {
+                  "example": "any"
+                },
+                "icaoCode": {
+                  "example": "any"
+                },
+                "country": {
+                  "example": "any"
+                },
+                "founded": {
+                  "example": "any"
+                },
+                "headquarters": {
+                  "example": "any"
+                },
+                "website": {
+                  "example": "any"
+                },
+                "fleetSize": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Airlines"
+        ],
+        "summary": "Delete an airline",
+        "description": "Deletes an airline by MongoDB ID. Requires GitHub authentication.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/users/": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get all users",
+        "description": "Returns user profiles without GitHub IDs or email addresses.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Create a user",
+        "description": "Direct user creation is disabled; users register through GitHub OAuth.",
+        "responses": {
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get a user by ID",
+        "description": "Returns a single user profile by MongoDB ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Update a user",
+        "description": "Direct user updates are disabled; profiles are managed through authentication.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Delete a user",
+        "description": "Deletes a user by MongoDB ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/auth/github": {
+      "get": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Sign in with GitHub",
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/auth/github/callback": {
+      "get": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Complete GitHub authentication",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/auth/status": {
+      "get": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Check authentication status",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/auth/login-failed": {
+      "get": {
+        "description": "",
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Log out",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/flight-paths/": {
+      "get": {
+        "tags": [
+          "Flight Paths"
+        ],
+        "summary": "Get all flight paths",
+        "description": "Returns all flight paths in the collection.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Flight Paths"
+        ],
+        "summary": "Create a flight path",
+        "description": "Creates a new flight path. Requires GitHub authentication.",
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/flight-paths/{id}": {
+      "get": {
+        "tags": [
+          "Flight Paths"
+        ],
+        "summary": "Get a flight path by ID",
+        "description": "Returns a single flight path matching the provided MongoDB ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Flight Paths"
+        ],
+        "summary": "Update a flight path",
+        "description": "Replaces an existing flight path. Requires GitHub authentication.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Flight Paths"
+        ],
+        "summary": "Delete a flight path",
+        "description": "Deletes a flight path by MongoDB ID. Requires GitHub authentication.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
           },
           "404": {
             "description": "Not Found"

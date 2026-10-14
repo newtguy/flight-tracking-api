@@ -1,0 +1,35 @@
+### Get all airlines
+GET http://localhost:8080/airlines/
+
+### Get a specific airline by ID
+GET http://localhost:8080/airlines/invalid-id
+
+### Create a new airline
+POST http://localhost:8080/airlines/
+Content-Type: application/json
+
+{
+  "name": "Northstar Airways",
+  "iataCode": "NS",
+  "icaoCode": "NST",
+  "country": "United States",
+  "founded": 1985,
+  "headquarters": "Dallas, Texas",
+  "website": "https://example.com",
+  "fleetSize": 120
+}
+
+### Update an existing airline
+PUT http://localhost:8080/airlines/6aca82c257ad29e70114e82e
+Content-Type: application/json
+
+{
+  "name": "Northstar Airways",
+  "iataCode": "NS",
+  "icaoCode": "NST",
+  "country": "United States",
+  "founded": 1985,
+  "headquarters": "Dallas, Texas",
+  "website": "https://example.com",
+  "fleetSize": 120
+}

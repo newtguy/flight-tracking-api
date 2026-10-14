@@ -1,0 +1,11 @@
+### Get all users
+GET http://localhost:8080/users/
+
+### Get a specific user by ID
+GET http://localhost:8080/users/6acef53e0916f4e0d248f460
+
+### 403 Forbidden Must authorize through the /auth endpoint first
+POST http://localhost:8080/users/	
+
+### Create a new user
+PUT http://localhost:8080/users/VALID_ID
