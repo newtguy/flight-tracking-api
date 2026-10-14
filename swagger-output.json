@@ -232,7 +232,7 @@
           "Flights"
         ],
         "summary": "Delete a flight",
-        "description": "Deletes a flight matching the provided MongoDB ID. ",
+        "description": "Deletes a flight matching the provided MongoDB ID. Requires GitHub authentication.",
         "parameters": [
           {
             "name": "id",
@@ -862,6 +862,41 @@
         ],
         "summary": "Create a flight path",
         "description": "Creates a new flight path. Requires GitHub authentication.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "pathCode": {
+                  "example": "any"
+                },
+                "airline": {
+                  "example": "any"
+                },
+                "departureAirport": {
+                  "example": "any"
+                },
+                "arrivalAirport": {
+                  "example": "any"
+                },
+                "distance": {
+                  "example": "any"
+                },
+                "estimatedDuration": {
+                  "example": "any"
+                },
+                "isInternational": {
+                  "example": "any"
+                },
+                "status": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
         "responses": {
           "201": {
             "description": "Created"
@@ -920,6 +955,39 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "pathCode": {
+                  "example": "any"
+                },
+                "airline": {
+                  "example": "any"
+                },
+                "departureAirport": {
+                  "example": "any"
+                },
+                "arrivalAirport": {
+                  "example": "any"
+                },
+                "distance": {
+                  "example": "any"
+                },
+                "estimatedDuration": {
+                  "example": "any"
+                },
+                "isInternational": {
+                  "example": "any"
+                },
+                "status": {
+                  "example": "any"
+                }
+              }
+            }
           }
         ],
         "responses": {
